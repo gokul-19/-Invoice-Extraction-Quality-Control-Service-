@@ -1,6 +1,6 @@
 import streamlit as st
 import json
-from invoice_qc.loader import InvoiceLoader
+from invoice_qc.extractor import InvoiceExtractor
 from invoice_qc.validator import InvoiceValidator
 
 st.set_page_config(page_title="Invoice QC Service", layout="wide")
