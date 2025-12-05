@@ -3,20 +3,16 @@ import sys
 import os
 import json
 
-# Ensure repo root is on sys.path
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
-# Import backend modules
 from invoice_qc.extractor import InvoiceExtractor
 from invoice_qc.validator import InvoiceValidator
 
 st.set_page_config(page_title="Invoice QC Service", layout="wide")
 
-# --- HEADER ---
 st.title("📄 Invoice Quality Control Service")
-st.write("Upload PDF invoices → extract → validate → view report")
+st.write("Upload PDF invoices → extract → validate → download report")
 
-# --- UPLOAD PDF ---
 uploaded_files = st.file_uploader(
     "Upload one or more PDF invoices",
     type=["pdf"],
