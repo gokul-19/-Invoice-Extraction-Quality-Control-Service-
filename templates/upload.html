@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice QC Service</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Invoice QC Console</h1>
+
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label>Upload Invoice PDF:</label>
+        <input type="file" name="file" accept="application/pdf" required>
+        <button type="submit">Validate Invoice</button>
+    </form>
+</div>
+</body>
+</html>
