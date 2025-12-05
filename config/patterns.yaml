@@ -1,43 +1,23 @@
 invoice_number:
-  - "Invoice Number"
   - "Invoice No"
+  - "Invoice Number"
   - "Invoice #"
 
 invoice_date:
   - "Invoice Date"
-  - "Date of Issue"
+  - "Date of Invoice"
 
 due_date:
   - "Due Date"
-  - "Payment Due"
 
 seller_name:
   - "Seller"
   - "From"
 
-seller_address:
-  - "Seller Address"
-  - "From Address"
-
 buyer_name:
   - "Buyer"
   - "To"
 
-buyer_address:
-  - "Buyer Address"
-  - "To Address"
+currency:
+  - "Currency"
 
-net_total:
-  - "Subtotal"
-  - "Net Total"
-  - "Amount before Tax"
-
-tax_amount:
-  - "Tax"
-  - "GST"
-  - "VAT"
-
-gross_total:
-  - "Total"
-  - "Amount Due"
-  - "Invoice Total"
