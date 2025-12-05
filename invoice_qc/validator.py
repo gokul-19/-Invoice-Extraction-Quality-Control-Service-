@@ -32,4 +32,54 @@ class InvoiceValidator:
                 errors.append("business_rule_failed: line_items_sum_mismatch")
 
         if inv.net_total and inv.tax_amount and inv.gross_total:
-            if abs(inv.net
+            if abs(inv.net_total + inv.tax_amount - inv.gross_total) > 1:
+                errors.append("business_rule_failed: totals_mismatch")
+
+        d1 = self._parse_date(inv.invoice_date)
+        d2 = self._parse_date(inv.due_date) if inv.due_date else None
+        if d1 and d2 and d2 < d1:
+            errors.append("business_rule_failed: due_before_invoice")
+
+    def _validate_anomaly(self, inv, errors):
+        key = (inv.invoice_number, inv.seller_name)
+        if inv.invoice_number and key in self.seen_keys:
+            errors.append("anomaly: duplicate_invoice")
+        else:
+            if inv.invoice_number:
+                self.seen_keys.add(key)
+
+        nums = [inv.net_total, inv.tax_amount, inv.gross_total]
+        if any(n is not None and n < 0 for n in nums):
+            errors.append("anomaly: negative_amount")
+
+    def validate(self, invoices):
+        results = []
+        err_counts = {}
+
+        for inv in invoices:
+            invoice = Invoice(**inv) if isinstance(inv, dict) else inv
+            errors = []
+
+            self._validate_completeness(invoice, errors)
+            self._validate_format(invoice, errors)
+            self._validate_business(invoice, errors)
+            self._validate_anomaly(invoice, errors)
+
+            for e in errors:
+                err_counts[e] = err_counts.get(e, 0) + 1
+
+            results.append({
+                "invoice_id": invoice.invoice_number,
+                "is_valid": len(errors) == 0,
+                "errors": errors
+            })
+
+        summary = {
+            "total_invoices": len(invoices),
+            "valid_invoices": sum(1 for r in results if r["is_valid"]),
+            "invalid_invoices": sum(1 for r in results if not r["is_valid"]),
+            "error_counts": err_counts
+        }
+
+        return {"results": results, "summary": summary}
+
