@@ -39,8 +39,9 @@ class InvoiceExtractor:
                     )
         return items
 
-    def extract_single(self, pdf_path):
-        with pdfplumber.open(pdf_path) as pdf:
+    def extract_single(self, pdf_file):
+        # pdf_file can be BytesIO from Streamlit upload
+        with pdfplumber.open(pdf_file) as pdf:
             pages_text = "\n".join([p.extract_text() or "" for p in pdf.pages])
 
         data = {}
@@ -48,7 +49,7 @@ class InvoiceExtractor:
             data[key] = self._find_value(pages_text, labels)
 
         for f in ["net_total", "tax_amount", "gross_total"]:
-            if data.get(f) and re.match(r"^\d+(\.\d+)?$", data[f]):
+            if data.get(f) and re.match(r"^\d+(\.\d+)?$", str(data[f])):
                 data[f] = float(data[f])
             else:
                 data[f] = None
@@ -58,10 +59,3 @@ class InvoiceExtractor:
 
         return Invoice(**data)
 
-    def extract_folder(self, pdf_dir):
-        results = []
-        for file in os.listdir(pdf_dir):
-            if file.lower().endswith(".pdf"):
-                path = os.path.join(pdf_dir, file)
-                results.append(self.extract_single(path).dict())
-        return results
