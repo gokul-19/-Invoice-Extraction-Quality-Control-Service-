@@ -1,22 +1,24 @@
-invoice_number_patterns:
-  - "(?i)invoice\\s*(no|number|#)[:\\s]+([A-Za-z0-9-./]+)"
-  - "(?i)invoice\\s*id[:\\s]+([A-Za-z0-9-./]+)"
-
-invoice_date_patterns:
-  - "(?i)invoice\\s*date[:\\s]+(\\d{2}[/-]\\d{2}[/-]\\d{4})"
-  - "(?i)date[:\\s]+(\\d{2}[/-]\\d{2}[/-]\\d{4})"
-
-due_date_patterns:
-  - "(?i)due\\s*date[:\\s]+(\\d{2}[/-]\\d{2}[/-]\\d{4})"
-
-currency_patterns:
-  - "(?i)(INR|EUR|USD|GBP|AED)"
-
-net_total_patterns:
-  - "(?i)(net|subtotal|net total)[\\s:]+([0-9,]+\\.?[0-9]*)"
-
-tax_amount_patterns:
-  - "(?i)(tax|gst|vat)[\\s:]+([0-9,]+\\.?[0-9]*)"
-
-gross_total_patterns:
-  - "(?i)(total|grand total)[\\s:]+([0-9,]+\\.?[0-9]*)"
+invoice_number:
+  - "Invoice Number"
+  - "Invoice No"
+  - "Invoice #"
+invoice_date:
+  - "Invoice Date"
+  - "Date of Issue"
+due_date:
+  - "Due Date"
+seller:
+  - "Seller"
+  - "From"
+buyer:
+  - "Buyer"
+  - "To"
+net_total:
+  - "Subtotal"
+  - "Net Total"
+tax_amount:
+  - "Tax"
+  - "GST"
+gross_total:
+  - "Total"
+  - "Amount Due"
